@@ -13,98 +13,96 @@ namespace _111_1HW2
         {
             int[] ia_MIndex = new int[10] { 0, 7, 13, 28, 44, 62, 74, 75, 87, 90 };
             char[,] ia_Map = new char[10, 10];
-            for (int Row = 0; Row < 10; Row++)
+            for (int a = 0; a < 10; a++)
             {
-                for (int Col = 0; Col < 10; Col++)
+                for (int b = 0; b < 10; b++)
                 {
-                    ia_Map[Row, Col] = '0';
+                    ia_Map[a, b] = '0';
+                }
+            }
+                       
+            for (int Ct = 0; Ct < 10; Ct++) //a上下 -上 +下 b左右 -左 +右
+            {
+                int a = ia_MIndex[Ct] / 10;
+                int b = ia_MIndex[Ct] % 10;
+                
+                if ((a - 1) >= 0 && (b - 1) >= 0) //左上
+                {
+                    int i_tmp = Convert.ToInt32(ia_Map[a - 1, b - 1]);
+                    i_tmp++;
+                    ia_Map[a - 1, b - 1] = Convert.ToChar(i_tmp);
+                }
+
+                if ((a) >= 0 && (b - 1) >= 0) //左
+                {
+                    int i_tmp = Convert.ToInt32(ia_Map[a, b - 1]);
+                    i_tmp++;
+                    ia_Map[a, b - 1] = Convert.ToChar(i_tmp);
+                    
+                }
+
+                if ((a + 1) >= 0 && (b - 1) >= 0) //左下
+                {
+                    int i_tmp = Convert.ToInt32(ia_Map[a + 1, b - 1]);
+                    i_tmp++;
+                    ia_Map[a + 1, b - 1] = Convert.ToChar(i_tmp);
+                }
+
+                if ((a + 1) < 10 && (b ) >= 0) //下
+                {
+                    int i_tmp = Convert.ToInt32(ia_Map[a + 1, b ]);
+                    i_tmp++;
+                    ia_Map[a + 1, b ] = Convert.ToChar(i_tmp);
+                }
+
+                if ((a + 1) < 10 && (b + 1) < 10) //右下
+                {
+                    int i_tmp = Convert.ToInt32(ia_Map[a + 1, b + 1]);
+                    i_tmp++;
+                    ia_Map[a + 1, b + 1] = Convert.ToChar(i_tmp);
+                }
+
+                if ((a ) >= 0 && (b + 1) < 10) //右
+                {
+                    int i_tmp = Convert.ToInt32(ia_Map[a, b + 1]);
+                    i_tmp++;
+                    ia_Map[a, b + 1] = Convert.ToChar(i_tmp);
+                    
+                }
+
+                if ((a - 1) >= 0 && (b + 1) < 10) //右上
+                {
+                    int i_tmp = Convert.ToInt32(ia_Map[a - 1, b + 1]);
+                    i_tmp++;
+                    ia_Map[a - 1, b + 1] = Convert.ToChar(i_tmp);
+                }
+
+                if ((a - 1) >= 0 && (b) >= 0) //上
+                {
+                    int i_tmp = Convert.ToInt32(ia_Map[a - 1, b ]);
+                    i_tmp++;
+                    ia_Map[a - 1, b ] = Convert.ToChar(i_tmp);
                 }
             }
 
             for (int Ct = 0; Ct < 10; Ct++)
             {
-                int Row = ia_MIndex[Ct] / 10;
-                int Col = ia_MIndex[Ct] % 10;
-                ia_Map[Row, Col] = '*';
+                int a = ia_MIndex[Ct] / 10;
+                int b = ia_MIndex[Ct] % 10;
+                ia_Map[a, b] = '*';
             }
 
-            for (int Row = 0; Row < 10; Row++)
+
+            for (int a = 0; a < 10; a++)
             {
-                for (int Col = 0; Col < 10; Col++)
+                for (int b = 0; b < 10; b++)
                 {
-                    Response.Write(ia_Map[Row, Col]);
+                    Response.Write(ia_Map[a, b]);
                 }
                 Response.Write("<br />");
             }
 
-            for (int Row = 0; Row < 10; Row++)
-            {
-                for (int Col = 0; Col < 10; Col++)
-                {
-                    if (ia_Map[Row, Col] == '*')
-                    {
-                        continue;
-                    }
-                    int bombcounter = 0;
-                    if ((Row -1) >= 0 && (Col -1) >= 0) //左上
-                    {
-                        if (ia_Map[Row - 1, Col - 1] == '*')
-                        {
-                            bombcounter++;
-                        }                        
-                    }
-                    if ((Row - 1) >= 0) //上
-                    {
-                        if (ia_Map[Row - 1, Col] == '*')
-                        {
-                            bombcounter++;
-                        }
-                    }
-                    if ((Row - 1) >= 0 && (Col + 1) < 10) //右上
-                    {
-                        if (ia_Map[Row - 1, Col + 1] == '*')
-                        {
-                            bombcounter++;
-                        }
-                    }
-                    if ((Col + 1) < 10) //右
-                    {
-                        if (ia_Map[Row , Col + 1] == '*')
-                        {
-                            bombcounter++;
-                        }
-                    }
-                    if ((Row + 1) < 10 && (Col + 1) < 10) //右下
-                    {
-                        if (ia_Map[Row + 1, Col + 1] == '*')
-                        {
-                            bombcounter++;
-                        }
-                    }
-                    if ((Row + 1) < 10 ) //下
-                    {
-                        if (ia_Map[Row + 1, Col] == '*')
-                        {
-                            bombcounter++;
-                        }
-                    }
-                    if ((Row + 1) < 10 && (Col - 1) >= 0) //左下
-                    {
-                        if (ia_Map[Row + 1, Col - 1] == '*')
-                        {
-                            bombcounter++;
-                        }
-                    }
-                    if ((Col - 1) >= 0) //左
-                    {
-                        if (ia_Map[Row , Col - 1] == '*')
-                        {
-                            bombcounter++;
-                        }
-                    }
-                    ia_Map[Row,Col] = Convert.ToChar(bombcounter);
-                }
-            }
+
         }
     }
 }
