@@ -20,6 +20,7 @@ namespace _111_1HW2
                     ia_Map[a, b] = '0';
                 }
             }
+
                        
             for (int Ct = 0; Ct < 10; Ct++) //a上下 -上 +下 b左右 -左 +右
             {
